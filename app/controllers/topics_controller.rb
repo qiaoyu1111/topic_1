@@ -64,7 +64,13 @@ class TopicsController < ApplicationController
   def upvote
     @topic = Topic.find(params[:id])
     @topic.votes.create
-    redirect_to topics_path
+    redirect_to topics_path, notice: 'Topic was successfully upvote.'
+  end
+
+  def devote
+    @topic = Topic.find(params[:id])
+    @topic.votes.first.destroy if @topic.votes.count > 0
+    redirect_to topics_path, notice: 'Topic was successfully devote.'
   end
 
   private
